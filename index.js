@@ -13,10 +13,33 @@
  from the data array that comes back from the API
  */
 
+/**
+Challenge:
+
+With the 5 blog post objects, display the `title` and `body`
+properties of the first 5 posts on the browser page.
+ 
+Hints: 
+* Create a `div` in the HTML file to store these items
+* Loop over the items creating a string of HTML elements you 
+  can then put into the div with `innerHTML`
+*/
+const container = document.querySelector('.container')
+
+
 fetch("https://apis.scrimba.com/jsonplaceholder/posts")
     .then(response => response.json())
     .then(data => {
         const postsArr = data.slice(0, 5)
         console.log(postsArr)
+        postsArr.forEach(post => {
+            container.innerHTML += `
+            title: ${post.title} 
+            <br>
+            body: ${post.body}
+            <br>
+            <br>
+            `
+        })
     })
 
