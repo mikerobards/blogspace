@@ -1,5 +1,6 @@
 // fetch("https://apis.scrimba.com/jsonplaceholder/todos", { method: "POST" })
 
+
 /**
  Challenge:
  
@@ -12,6 +13,9 @@
 
 
 const blogList = document.getElementById('blog-list')
+let form = document.getElementById('post')
+let title = form.elements['post-title']
+let body = form.elements['post-body']
 
 
 
@@ -30,5 +34,20 @@ fetch("https://apis.scrimba.com/jsonplaceholder/posts")
         }
         blogList.innerHTML = html
     })
+
+form.addEventListener('submit', (e) => {
+    let title = form.elements['post-title']
+    let body = form.elements['post-body']
+    let postTitle = title.value
+    let postBody = body.value
+    console.log(`title: ${postTitle}; body: ${postBody}`)
+    e.preventDefault();
+})
+
+
+
+
+
+
 
 
