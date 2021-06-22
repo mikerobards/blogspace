@@ -14,7 +14,7 @@
 
 
 const blogList = document.getElementById('blog-list')
-let form = document.getElementById('new-post')
+const form = document.getElementById('new-post')
 // let title = form.elements['post-title']
 // let body = form.elements['post-body']
 const titleField = document.getElementById('post-title')
@@ -34,8 +34,7 @@ function renderPosts() {
         `
     }
     blogList.innerHTML = html
-    titleField.value = ''
-    bodyField.value = ''
+
 
 }
 
@@ -47,6 +46,7 @@ fetch("https://apis.scrimba.com/jsonplaceholder/posts")
     .then(data => {
         postsArray = data.slice(0, 5)
         renderPosts()
+
     })
 
 form.addEventListener('submit', (e) => {
@@ -79,6 +79,9 @@ form.addEventListener('submit', (e) => {
         .then(post => {
             postsArray.unshift(post)
             renderPosts()
+            // titleField.value = ''
+            // bodyField.value = ''
+            form.reset()
         })
 })
 
