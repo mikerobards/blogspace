@@ -15,25 +15,30 @@
 
 const blogList = document.getElementById('blog-list')
 let form = document.getElementById('new-post')
-let title = form.elements['post-title']
-let body = form.elements['post-body']
+// let title = form.elements['post-title']
+// let body = form.elements['post-body']
+let postsArray = []
+
+function renderPosts() {
+    let html = ''
+    for (let post of postsArray) {
+        html += `
+            <h3>${post.title}</h3>
+            <p>${post.body}</p>
+            <hr />
+        `
+    }
+    blogList.innerHTML = html
+}
+
 
 
 
 fetch("https://apis.scrimba.com/jsonplaceholder/posts")
     .then(response => response.json())
     .then(data => {
-        const postsArr = data.slice(0, 5)
-        console.log(postsArr)
-        let html = ''
-        for (let post of postsArr) {
-            html += `
-                <h3>${post.title}</h3>
-                <p>${post.body}</p>
-                <hr />
-            `
-        }
-        blogList.innerHTML = html
+        postsArray = data.slice(0, 5)
+        renderPosts()
     })
 
 form.addEventListener('submit', (e) => {
@@ -52,27 +57,21 @@ form.addEventListener('submit', (e) => {
         body: postBody
     }
     console.log(data)
-    fetch("https://apis.scrimba.com/jsonplaceholder/posts", {
+
+    const options = {
         method: "POST",
-        body: JSON.stringify({
-            title: postTitle,
-            body: postBody
-        }),
+        body: JSON.stringify(data),
         headers: {
-            'Content-type': 'application/json'
+            'Content-Type': 'application/json'
         }
-    }).then(res => res.json()).then(data => {
+    }
 
-        let html = `
-            <h3>${data.title}</h3>
-            <p>${data.body}</p>
-            <hr />
-        `
-
-        blogList.innerHTML += html
-    })
-
-
+    fetch("https://apis.scrimba.com/jsonplaceholder/posts", options)
+        .then(res => res.json())
+        .then(post => {
+            postsArray.unshift(post)
+            renderPosts()
+        })
 })
 
 
