@@ -17,7 +17,12 @@ const blogList = document.getElementById('blog-list')
 let form = document.getElementById('new-post')
 // let title = form.elements['post-title']
 // let body = form.elements['post-body']
+const titleField = document.getElementById('post-title')
+const bodyField = document.getElementById('post-body')
 let postsArray = []
+
+// console.log(postTitle, postBody)
+
 
 function renderPosts() {
     let html = ''
@@ -29,6 +34,9 @@ function renderPosts() {
         `
     }
     blogList.innerHTML = html
+    titleField.value = ''
+    bodyField.value = ''
+
 }
 
 
@@ -49,13 +57,13 @@ form.addEventListener('submit', (e) => {
     // console.log(`title: ${postTitle}; body: ${postBody}`)
 
     e.preventDefault()
-    const postTitle = document.getElementById('post-title').value
-    const postBody = document.getElementById('post-body').value
-    // console.log(postTitle, postBody)
+    const postTitle = titleField.value
+    const postBody = bodyField.value
     const data = {
         title: postTitle,
         body: postBody
     }
+
     console.log(data)
 
     const options = {
