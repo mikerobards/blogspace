@@ -6,7 +6,10 @@
 //     body: JSON.stringify({
 //         title: "Buy Milk",
 //         completed: false
-//     })
+//     }),
+//     headers: {
+//         'Content-type': 'application/json'
+//     }
 // }).then(res => res.json()).then(data => console.log(data))
 
 
@@ -49,6 +52,26 @@ form.addEventListener('submit', (e) => {
         body: postBody
     }
     console.log(data)
+    fetch("https://apis.scrimba.com/jsonplaceholder/posts", {
+        method: "POST",
+        body: JSON.stringify({
+            title: postTitle,
+            body: postBody
+        }),
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }).then(res => res.json()).then(data => {
+
+        let html = `
+            <h3>${data.title}</h3>
+            <p>${data.body}</p>
+            <hr />
+        `
+
+        blogList.innerHTML += html
+    })
+
 
 })
 
